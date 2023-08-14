@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "sortedenchantments",
+  "version": "${version}",
+
+  "name": "Sorted Enchantments",
+  "description": "Sorts enchantments in tooltips, and wherever else lists of enchantments are used\n(which probably breaks some things)",
+  "authors": [
+    "unilock"
+  ],
+  "contact": {
+    "sources": "https://github.com/unilock/SortedEnchantments"
+  },
+
+  "license": "MIT",
+
+  "environment": "client",
+  "mixins": [
+    "sortedenchantments.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": "*",
+    "minecraft": ">=1.19.2"
+  }
+}

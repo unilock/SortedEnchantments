@@ -1,0 +1,30 @@
+modLoader = "lowcodefml"
+loaderVersion = "[40,)"
+license = "MIT"
+
+#issueTrackerURL="https://github.com/unilock/SortedEnchantments/issues"
+
+[[mods]]
+modId = "sorted_enchantments"
+version = "${version}"
+displayName = "Sorted Enchantments"
+# displayURL="https://github.com/unilock/SortedEnchantments"
+# logoFile="icon.png"
+authors="unilock"
+description = '''
+Sorts enchantments in tooltips (alphabetically)
+'''
+
+[[dependencies.sorted_enchantments]]
+modId = "forge"
+mandatory = true
+versionRange = "[40,)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.sorted_enchantments]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18.2,)"
+ordering = "NONE"
+side = "CLIENT"

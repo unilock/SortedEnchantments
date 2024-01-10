@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Sorted Enchantments",
-  "description": "Sorts enchantments in tooltips, and wherever else lists of enchantments are used\n(which probably breaks some things)",
+  "description": "Sorts enchantments in item tooltips (alphabetically)",
   "authors": [
     "unilock"
   ],

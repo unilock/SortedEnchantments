@@ -1,0 +1,22 @@
+modLoader = "lowcodefml"
+loaderVersion = "[1,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/unilock/SortedEnchantments/issues"
+
+[[mods]]
+modId = "sortedenchantments"
+version = "${version}"
+displayName = "Sorted Enchantments"
+displayURL = "https://github.com/unilock/SortedEnchantments"
+authors = "unilock"
+description = '''Sorts enchantments in item tooltips (alphabetically)'''
+
+[[mixins]]
+config = "sortedenchantments.mixins.json"
+
+[[dependencies.sortedenchantments]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21,)"
+ordering = "NONE"
+side = "BOTH"

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "sortedenchantments",
+  "version": "${version}",
+  "name": "Sorted Enchantments",
+  "description": "Sorts enchantments in item tooltips (alphabetically)",
+  "authors": [
+    "unilock"
+  ],
+  "contact": {
+    "sources": "https://github.com/unilock/SortedEnchantments",
+    "issues": "https://github.com/unilock/SortedEnchantments/issues"
+  },
+  "license": "MIT",
+  "environment": "client",
+  "mixins": [
+    "sortedenchantments.mixins.json"
+  ],
+  "depends": {
+    "minecraft": ">=1.21"
+  }
+}

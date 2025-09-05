@@ -7,80 +7,64 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
-import java.util.stream.Stream;
+
+import static cc.unilock.sortedenchantments.SortedEnchantments.CONFIG;
 
 public final class NBTUtils {
-    private static final boolean cursesBelow = false;
-
-    public static Stream<EnchantmentCompound> sort(NbtList listTag) {
+    public static NbtList sort(NbtList unsorted) {
         Comparator<EnchantmentCompound> comparator;
 
-        if (cursesBelow) {
-            comparator = Comparator.comparing(EnchantmentCompound::isCursed);
+        if (CONFIG.sortCursesBelow.value()) {
+            comparator = Comparator.comparing(EnchantmentCompound::cursed);
         } else {
             comparator = Comparator.comparing(e -> 0); // Preserve existing order
         }
 
-        comparator = comparator.thenComparing(EnchantmentCompound::getTranslatedName);
+        comparator = comparator.thenComparing(EnchantmentCompound::translatedName);
 
-        return listTag.stream().map(EnchantmentCompound::new).sorted(comparator);
-    }
-
-    public static NbtList toListTag(Stream<EnchantmentCompound> stream) {
-        NbtList listTag = new NbtList();
-        stream.forEachOrdered(tag -> listTag.add(tag.asCompoundTag()));
-        return listTag;
+        NbtList sorted = new NbtList();
+        unsorted.stream().map(EnchantmentCompound::new).sorted(comparator).forEachOrdered(e -> sorted.add(e.compound()));
+        return sorted;
     }
 
     public static class EnchantmentCompound {
-        @NotNull private final NbtCompound compound;
-        private final Enchantment enchantment;
-        private String translatedName = null;
-        private boolean isCursed = false;
+        private final NbtCompound compound;
+        private final boolean cursed;
+        private final String translatedName;
 
-        public EnchantmentCompound(@NotNull NbtElement tag) {
-            if (tag.getType() != NbtElement.COMPOUND_TYPE) {
-                throw new AssertionError("tag is not a CompoundTag");
+        public EnchantmentCompound(NbtElement nbt) {
+            if (nbt.getType() != NbtElement.COMPOUND_TYPE) {
+                throw new AssertionError("NbtElement is not a CompoundTag");
             }
 
-            this.compound = (NbtCompound) tag;
+            this.compound = (NbtCompound) nbt; 
 
-            Identifier identifier = Identifier.tryParse(compound.getString("id"));
-            this.enchantment = Registries.ENCHANTMENT.get(identifier);
+            Identifier id = Identifier.tryParse(this.compound.getString("id"));
+            Enchantment enchantment = Registries.ENCHANTMENT.get(id);
 
-            // Items can have non-registered enchantment tags on them
-            if (identifier == null || enchantment == null) {
-                // dummy comparison values
+            // Items can have unregistered enchantments
+            if (id == null || enchantment == null) {
+                this.cursed = false;
                 this.translatedName = "";
                 return;
             }
 
-            this.isCursed = this.enchantment.isCursed();
+            this.cursed = enchantment.isCursed();
+            this.translatedName = I18n.translate(enchantment.getTranslationKey());
         }
 
-        private void lazyInit() {
-            this.translatedName = I18n.translate(this.enchantment.getTranslationKey());
+        public NbtCompound compound() {
+            return this.compound;
         }
 
-        @NotNull
-        public NbtCompound asCompoundTag() {
-            return compound;
+        public boolean cursed() {
+            return this.cursed;
         }
 
-        public boolean isCursed() {
-            return isCursed;
-        }
-
-        @NotNull
-        public String getTranslatedName() {
-            if (this.translatedName == null) {
-                lazyInit();
-            }
-
-            return translatedName;
+        public String translatedName() {
+            return this.translatedName;
         }
     }
 }

@@ -1,18 +1,22 @@
 package cc.unilock.sortedenchantments.mixin;
 
 import cc.unilock.sortedenchantments.NBTUtils;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.item.EnchantedBookItem;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import static cc.unilock.sortedenchantments.SortedEnchantments.CONFIG;
 
 @Mixin(EnchantedBookItem.class)
 public class EnchantedBookItemMixin {
-    @Inject(method = "getEnchantmentNbt", at = @At("RETURN"), cancellable = true)
-    private static void injected(ItemStack stack, CallbackInfoReturnable<NbtList> cir) {
-        cir.setReturnValue(NBTUtils.toListTag(NBTUtils.sort(cir.getReturnValue())));
+    @ModifyExpressionValue(method = "appendTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/EnchantedBookItem;getEnchantmentNbt(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/nbt/NbtList;"))
+    private static NbtList sortStoredEnchantments(NbtList enchantments) {
+        if (CONFIG.enableBooks.value()) {
+            return NBTUtils.sort(enchantments);
+        } else {
+            return enchantments;
+        }
     }
 }

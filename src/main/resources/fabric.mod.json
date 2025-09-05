@@ -2,25 +2,27 @@
   "schemaVersion": 1,
   "id": "sortedenchantments",
   "version": "${version}",
-
   "name": "Sorted Enchantments",
   "description": "Sorts enchantments in item tooltips (alphabetically)",
   "authors": [
     "unilock"
   ],
   "contact": {
-    "sources": "https://github.com/unilock/SortedEnchantments"
+    "sources": "https://github.com/unilock/SortedEnchantments",
+    "issues": "https://github.com/unilock/SortedEnchantments/issues"
   },
-
   "license": "MIT",
-
   "environment": "client",
+  "entrypoints": {
+    "client": [
+      "cc.unilock.sortedenchantments.SortedEnchantments"
+    ]
+  },
   "mixins": [
     "sortedenchantments.mixins.json"
   ],
-
   "depends": {
-    "fabricloader": "*",
+    "fabricloader": ">=0.15",
     "minecraft": ">=1.19.3"
   }
 }

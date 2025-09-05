@@ -10,13 +10,11 @@ import net.minecraft.util.Identifier;
 
 import java.util.Comparator;
 
-import static cc.unilock.sortedenchantments.SortedEnchantments.CONFIG;
-
 public final class NBTUtils {
     public static NbtList sort(NbtList unsorted) {
         Comparator<EnchantmentCompound> comparator;
 
-        if (CONFIG.sortCursesBelow.value()) {
+        if (SortedEnchantments.sortCursesBelow) {
             comparator = Comparator.comparing(EnchantmentCompound::cursed);
         } else {
             comparator = Comparator.comparing(e -> 0); // Preserve existing order

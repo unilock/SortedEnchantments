@@ -10,12 +10,12 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
-    @ModifyExpressionValue(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getEnchantments()Lnet/minecraft/nbt/NbtList;"))
-    private NbtList sortEnchantments(NbtList enchantments) {
-        if (SortedEnchantments.enable) {
-            return NBTUtils.sort(enchantments);
-        } else {
-            return enchantments;
-        }
-    }
+	@ModifyExpressionValue(method = "getTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;getEnchantments()Lnet/minecraft/nbt/NbtList;"))
+	private NbtList sortEnchantments(NbtList enchantments) {
+		if (SortedEnchantments.enable) {
+			return NBTUtils.sort(enchantments);
+		} else {
+			return enchantments;
+		}
+	}
 }

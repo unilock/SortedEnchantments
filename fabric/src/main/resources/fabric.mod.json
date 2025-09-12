@@ -13,10 +13,16 @@
   },
   "license": "MIT",
   "environment": "client",
+  "entrypoints": {
+    "client": [
+      "cc.unilock.sortedenchantments.SortedEnchantmentsFabric"
+    ]
+  },
   "mixins": [
     "sortedenchantments.mixins.json"
   ],
   "depends": {
-    "minecraft": ">=1.21"
+    "minecraft": ">=1.21",
+    "fabric-api": "*"
   }
 }

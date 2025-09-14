@@ -38,6 +38,8 @@ repositories {
 dependencies {
     neoForge "net.neoforged:neoforge:${rootProject.neoforge_version}"
 
+    include "folk.sisby:kaleido-config:${rootProject.kaleido_version}"
+
     common(project(path: ":xplat", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":xplat", configuration: "transformProductionNeoForge")) { transitive = false }
 }

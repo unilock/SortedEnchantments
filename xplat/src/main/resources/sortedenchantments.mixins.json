@@ -5,8 +5,7 @@
   "mixins": [],
   "client": [
     "ItemEnchantmentsMixin",
-    "ItemStackMixin",
-    "ItemTooltipContextMixin"
+    "ItemStackMixin"
   ],
   "injectors": {
     "defaultRequire": 1
